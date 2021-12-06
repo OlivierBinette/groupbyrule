@@ -2,6 +2,6 @@
 /__pycache__
 /data/__pycache__
 /dist
-/groupby_rule.egg-info
+/groupbyrule.egg-info
 
 *.pyc

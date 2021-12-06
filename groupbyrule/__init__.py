@@ -2,3 +2,4 @@ from .data import RLdata500, RLdata10000, identity_RLdata500, identity_RLdata100
 from .groupingrule import GroupingRule
 from .any import Any
 from .match import Match
+from .allbutk import AllButK

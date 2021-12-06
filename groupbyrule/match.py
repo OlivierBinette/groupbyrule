@@ -14,7 +14,7 @@ class Match(GroupingRule):
     def apply(self, df: pd.DataFrame) -> Match:
         super().apply(df)
 
-        self._groups_vector = Match._groups_from_rules(self.rules, df)
+        self._groups = Match._groups_from_rules(self.rules, df)
         self._update_graph = True
         self._update_clusters = True
         self.n = df.shape[0]
@@ -38,10 +38,10 @@ class Match(GroupingRule):
             clust = pd.DataFrame({"groups":self.groups}).groupby("groups").indices
             self._graph = igraph.Graph(n=self.n)
             self._graph.add_edges(itertools.chain(*(list(itertools.combinations(clust[x], 2)) for x in clust)))
-
+            self._update_graph = False
         return self._graph
 
     @property
     def groups(self) -> np.ndarray:
-        return self._groups_vector
+        return self._groups
 
