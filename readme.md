@@ -1,6 +1,6 @@
 # groupbyrule: group and summarize dataframes using fuzzy and deterministic matching rules
 
-:construction: *under development* :construction:
+:construction: under construction :construction:
 
 **groupbyrule** is a Python package for data cleaning and data integration. It provides an extension of [pandas](https://pandas.pydata.org/)' [`groupby`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html) function which, instead of grouping rows by a given identifier, groups rows based on logical rules and partial matching. In other words, it provides tools for deterministic record linkage and entity resolution in structured databases. It can also be used for *blocking*, a form of filtering used to speed-up more complex entity resolution algorithms. See the references below to learn more about these topics.
 
@@ -14,7 +14,7 @@ One of the main goal of **groupbyrule** is to be *user-friendly*. Matching rules
 
 Consider the `RLdata500` dataset from the [RecordLinkage R package](https://www.google.com/search?channel=fs&client=ubuntu&q=recordlinkage+r+package).
 
-```{python}
+```python
 from groupbyrule import RLdata500
 
 RLdata500.head()
@@ -22,7 +22,7 @@ RLdata500.head()
 
 We deduplicate this dataset by linking records which match either on both first name (`fname_c1`) and last name (`lname_c1`), on both first name and birth day (`bd`), or on both last name and birth day. Linkage transitivity is resolved, by default, by considering connected components of the resulting graph.
 
-```{python}
+```python
 from groupbyrule import Data, Any, Match
 
 Data(RLdata500).groupby(Any(Match(fname_c1", "lname_c1"),
@@ -35,7 +35,7 @@ Note that this is not the best way to deduplicate this dataset. However, it show
 
 A better way to deduplicate this data is to link all pairs of records which agree on all but at most one attribute. This is done below, with the precision and recall computed from the ground truth membership vector `identity_RLdata500`.
 
-```{python}
+```python
 from groupbyrule import AllButK
 
 Data(RLdata500).groupby(AllButK("fname_c1", "lname_c1", "bd", "bm", "by", k=1))\
