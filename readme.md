@@ -1,4 +1,4 @@
-# groupbyrule: group and summarize dataframes using fuzzy and deterministic matching rules
+# groupbyrule: deduplicate data using fuzzy and deterministic matching rules
 
 :construction: under construction :construction:
 
