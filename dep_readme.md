@@ -1,6 +1,6 @@
 # groupbyrule: deduplicate data using fuzzy and deterministic matching rules
 
-:construction: under construction :construction:
+🚧 under construction 🚧
 
 **groupbyrule** is a Python package for data cleaning and data integration. It provides an extension of [pandas](https://pandas.pydata.org/)' [`groupby`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html) function which, instead of grouping rows by a given identifier, groups rows based on logical rules and partial matching. In other words, it provides tools for deterministic record linkage and entity resolution in structured databases. It can also be used for *blocking*, a form of filtering used to speed-up more complex entity resolution algorithms. See the references below to learn more about these topics.
 
@@ -8,7 +8,7 @@ One of the main goal of **groupbyrule** is to be *user-friendly*. Matching rules
 
 ## Installation
 
-:construction:
+🚧
 
 ## Examples
 
@@ -31,7 +31,7 @@ Data(RLdata500).groupby(Any(Match(fname_c1", "lname_c1"),
                .combine() # Combine the information of matching records in lists 
 ```
 
-Note that this is not the best way to deduplicate this dataset. However, it showcases the composability of matching rules. The specific rules themselves (exact matching, fuzzy string matching, different clustering algorithms to resolve transitivity) can be customized as needed. A more complete overview is available [here]() :construction:.
+Note that this is not the best way to deduplicate this dataset. However, it showcases the composability of matching rules. The specific rules themselves (exact matching, fuzzy string matching, different clustering algorithms to resolve transitivity) can be customized as needed. A more complete overview is available [here]() 🚧.
 
 A better way to deduplicate this data is to link all pairs of records which agree on all but at most one attribute. This is done below, with the precision and recall computed from the ground truth membership vector `identity_RLdata500`.
 
@@ -45,11 +45,11 @@ Data(RLdata500).groupby(AllButK("fname_c1", "lname_c1", "bd", "bm", "by", k=1))\
 
 ### Overview of Linkage Rules
 
-:construction:
+🚧
 
 ### Overview of Clustering Algorithms
 
-:construction:
+🚧
 
 ## References
 
