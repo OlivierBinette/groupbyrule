@@ -14,15 +14,7 @@ class Match(GroupingRule):
     def apply(self, df: pd.DataFrame) -> Match:
         super().apply(df)
 
-        if len(self.rules) == 0:
-            if isinstance(self.rules[0], str):
-                self._groups_vector = df.groupby(self.rules).ngroup().values
-            elif isinstance(self.rules[0], GroupingRule):
-                self._groups_vector = self.rules[0].apply(df).groups
-            else:
-                raise NotImplementedError()
-        else:
-            self._groups_vector = Match._groups_from_rules(self.rules, df)
+        self._groups_vector = Match._groups_from_rules(self.rules, df)
         self._update_graph = True
         self._update_clusters = True
         self.n = df.shape[0]

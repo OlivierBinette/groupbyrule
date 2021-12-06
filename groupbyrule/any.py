@@ -34,5 +34,5 @@ class Any(GroupingRule):
     @property
     def groups(self):
         if self._update_groups:
-            self._groups_vector = self.clusters.groups
+            self._groups_vector = self._graph.clusters().membership
         return self._groups_vector
