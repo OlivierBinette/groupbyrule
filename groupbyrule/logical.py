@@ -26,12 +26,24 @@ class Match(GroupingRule):
     def _groups_from_rules(rules, df: pd.DataFrame) -> np.ndarray:
         def _groups(rule, df):
             if isinstance(rule, str):
-                return df.groupby(rule).ngroup().values
+                I = pd.isna(df[rule].values)
+                arr = np.ma.masked_array(df[rule].values, I)
+                arr = np.unique(arr, return_inverse=True)[1] # Get unique IDs
+                arr[I] = np.array(np.arange(len(arr), len(arr)+sum(I))) # Set different IDs for NA values
+                return arr
+                #return df.groupby(rule).ngroup().values # Does not properly account for NA values
             elif isinstance(rule, GroupingRule):
                 return rule.apply(df).groups
             else:
                 raise NotImplementedError()
-        return df.groupby([_groups(rule, df) for rule in rules]).ngroup().values
+
+        arr = np.array([_groups(rule, df) for rule in rules]).T
+        I = np.any(pd.isna(arr), axis=1)
+        ids = np.unique(arr[~I, :], axis=0, return_inverse=True)[1]
+        res = np.arange(arr.shape[0])
+        res[~I] = ids
+        return res
+        #return df.groupby([_groups(rule, df) for rule in rules]).ngroup().values #Does not properly account for NA values
 
     @property
     def graph(self) -> igraph.Graph:
