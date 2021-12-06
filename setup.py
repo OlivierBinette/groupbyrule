@@ -1,7 +1,6 @@
-from setuptools import setup, find_packages
+#!/usr/bin/env python3
 
-setup(
-    name='groupby_rule',
-    packages=find_packages(),
-    package_data={'groupbyrule': ['data/*']}
-)
+import setuptools
+
+if __name__ == "__main__":
+    setuptools.setup()

@@ -24,93 +24,7 @@ RLdata500.head()
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>fname_c1</th>
-      <th>fname_c2</th>
-      <th>lname_c1</th>
-      <th>lname_c2</th>
-      <th>by</th>
-      <th>bm</th>
-      <th>bd</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>CARSTEN</td>
-      <td>NaN</td>
-      <td>MEIER</td>
-      <td>NaN</td>
-      <td>1949</td>
-      <td>7</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>GERD</td>
-      <td>NaN</td>
-      <td>BAUER</td>
-      <td>NaN</td>
-      <td>1968</td>
-      <td>7</td>
-      <td>27</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>ROBERT</td>
-      <td>NaN</td>
-      <td>HARTMANN</td>
-      <td>NaN</td>
-      <td>1930</td>
-      <td>4</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>STEFAN</td>
-      <td>NaN</td>
-      <td>WOLFF</td>
-      <td>NaN</td>
-      <td>1957</td>
-      <td>9</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>RALF</td>
-      <td>NaN</td>
-      <td>KRUEGER</td>
-      <td>NaN</td>
-      <td>1966</td>
-      <td>1</td>
-      <td>13</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    Index(['fname_c1', 'fname_c2', 'lname_c1', 'lname_c2', 'by', 'bm', 'bd'], dtype='object')
 
 
 
@@ -131,7 +45,7 @@ Data(RLdata500).groupby(Any(Match("fname_c1", "lname_c1"),
 
     ImportError                               Traceback (most recent call last)
 
-    /tmp/ipykernel_162687/2088331581.py in <module>
+    /tmp/ipykernel_168160/2088331581.py in <module>
     ----> 1 from groupbyrule import Data, Any, Match
           2 
           3 Data(RLdata500).groupby(Any(Match("fname_c1", "lname_c1"),
@@ -168,4 +82,4 @@ Data(RLdata500).groupby(AllButK("fname_c1", "lname_c1", "bd", "bm", "by", k=1))\
 ## References
 
 - Binette, O. & Steorts, R.C. (2021) Almost All of Statistical Entity Resolution. arXiv e-prints, arxiv:
-- 
+-  

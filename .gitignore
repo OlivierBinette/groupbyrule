@@ -1,5 +1,7 @@
 /.idea
 /__pycache__
 /data/__pycache__
+/dist
+/groupby_rule.egg-info
 
 *.pyc
