@@ -12,8 +12,8 @@ class Match(GroupingRule):
         super().__init__()
         self.rules = args
 
-    def apply(self, df: pd.DataFrame) -> Match:
-        super().apply(df)
+    def fit(self, df: pd.DataFrame) -> Match:
+        super().fit(df)
 
         self._groups = Match._groups_from_rules(self.rules, df)
         self._update_graph = True
@@ -33,7 +33,7 @@ class Match(GroupingRule):
                 return arr
                 #return df.groupby(rule).ngroup().values # Does not properly account for NA values
             elif isinstance(rule, GroupingRule):
-                return rule.apply(df).groups
+                return rule.fit(df).groups
             else:
                 raise NotImplementedError()
 
@@ -69,9 +69,9 @@ class All(GroupingRule):
             return arg
         self.rules = [parse_arg(arg) for arg in args]
 
-    def apply(self, df: pd.DataFrame) -> All:
-        super().apply(df)
-        graphs = [rule.apply(df).graph for rule in self.rules]
+    def fit(self, df: pd.DataFrame) -> All:
+        super().fit(df)
+        graphs = [rule.fit(df).graph for rule in self.rules]
         self._graph = igraph.intersection(graphs, byname=False)
         self._update_clusters = True
         self._update_groups = True
@@ -102,9 +102,9 @@ class Any(GroupingRule):
             return arg
         self.rules = [parse_arg(arg) for arg in args]
 
-    def apply(self, df: pd.DataFrame) -> Any:
-        super().apply(df)
-        graphs = [rule.apply(df).graph for rule in self.rules]
+    def fit(self, df: pd.DataFrame) -> Any:
+        super().fit(df)
+        graphs = [rule.fit(df).graph for rule in self.rules]
         self._graph = igraph.union(graphs, byname=False)
         self._update_clusters = True
         self._update_groups = True
@@ -140,9 +140,9 @@ class AllButK(Any):
         # self.rules = [parse_arg(arg) for arg in args]
         # self.k = k
 
-    # def apply(self, df: pd.DataFrame) -> AllButK:
-    #     super().apply(df)
-    #     graphs = [rule.apply(df).graph for rule in self.rules]
+    # def fit(self, df: pd.DataFrame) -> AllButK:
+    #     super().fit(df)
+    #     graphs = [rule.fit(df).graph for rule in self.rules]
     #     base_graph = graphs[0].copy()
     #     if len(graphs) >= 2:
     #         for graph in itertools.islice(graphs, 1, None):

@@ -15,11 +15,14 @@ class GroupingRule(ABC):
         self._update_groups: bool = False
 
 
-    def apply(self, df: pd.DataFrame) -> GroupingRule:
+    def fit(self, df: pd.DataFrame) -> GroupingRule:
         self.n = df.shape[0]
         self.index = df.index
 
         return self
+
+    def __call__(self, index):
+        return self.groups[index]
 
     @property
     @abstractmethod
@@ -30,4 +33,3 @@ class GroupingRule(ABC):
     @abstractmethod
     def groups(self) -> np.ndarray:
         pass
-    
