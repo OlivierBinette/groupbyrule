@@ -11,7 +11,7 @@ One of the main goal of **groupbyrule** is to be *user-friendly*. Matching rules
 Install from github using the following command:
 
 
-```python
+```sh
 pip install git+https://github.com/OlivierBinette/groupbyrule.git
 ```
 
@@ -25,26 +25,13 @@ Consider the `RLdata500` dataset from the [RecordLinkage R package](https://www.
 ```python
 from groupbyrule import RLdata500
 
-RLdata500.head() 
+RLdata500.head()
 ```
 
 
 
-<script src="node_modules/style-scoped/scoped.min.js"></script>
+
 <div>
-<style scoped>
-.dataframe tbody tr th:only-of-type {
-    vertical-align: middle;
-}
-
-.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -183,19 +170,6 @@ RLdata500\
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
