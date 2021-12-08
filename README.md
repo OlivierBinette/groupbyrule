@@ -10,10 +10,7 @@ One of the main goal of **groupbyrule** is to be user-friendly. Matching rules a
 
 Install from github using the following command:
 
-
-```sh
-pip install git+https://github.com/OlivierBinette/groupbyrule.git
-```
+     pip install git+https://github.com/OlivierBinette/groupbyrule.git
 
 ## Examples
 
@@ -96,8 +93,69 @@ RLdata500
       <td>1</td>
       <td>13</td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>496</th>
+      <td>GABRIHELE</td>
+      <td>NaN</td>
+      <td>BECKER</td>
+      <td>NaN</td>
+      <td>1990</td>
+      <td>3</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>497</th>
+      <td>SABINE</td>
+      <td>NaN</td>
+      <td>SCHNEIDER</td>
+      <td>NaN</td>
+      <td>1953</td>
+      <td>5</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>498</th>
+      <td>MARIA</td>
+      <td>NaN</td>
+      <td>SCHNEIDER</td>
+      <td>NaN</td>
+      <td>1981</td>
+      <td>8</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>499</th>
+      <td>INGE</td>
+      <td>NaN</td>
+      <td>SCHREIBER</td>
+      <td>NaN</td>
+      <td>1967</td>
+      <td>12</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>500</th>
+      <td>KARIN</td>
+      <td>NaN</td>
+      <td>GUENTHER</td>
+      <td>NaN</td>
+      <td>1941</td>
+      <td>8</td>
+      <td>19</td>
+    </tr>
   </tbody>
 </table>
+<p>500 rows × 7 columns</p>
 </div>
 
 
