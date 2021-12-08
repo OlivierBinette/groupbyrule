@@ -30,7 +30,7 @@ RLdata500.head()
 
 
 
-
+<script src="node_modules/style-scoped/scoped.min.js"></script>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
