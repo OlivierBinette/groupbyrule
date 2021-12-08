@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.special import comb
 
-def precision(pred_labels: np.ndarray, true_labels: np.ndarray) -> tuple:
+def precision(pred_labels: np.ndarray, true_labels: np.ndarray) -> float:
     true_cluster_sizes = np.unique((pred_labels, true_labels), axis=1, return_counts=True)[1]    
     pred_cluster_sizes = np.unique(pred_labels, return_counts=True)[1]
 
@@ -10,5 +10,8 @@ def precision(pred_labels: np.ndarray, true_labels: np.ndarray) -> tuple:
 
     return TP/P
 
-def recall(pred_labels: np.ndarray, true_labels: np.ndarray) -> tuple:
+def recall(pred_labels: np.ndarray, true_labels: np.ndarray) -> float:
     return precision(true_labels, pred_labels)
+
+def precision_recall(pred_labels: np.ndarray, true_labels: np.ndarray) -> tuple:
+    return (precision(true_labels, pred_labels), recall(true_labels, pred_labels))
