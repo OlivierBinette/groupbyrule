@@ -25,7 +25,7 @@ Consider the `RLdata500` dataset from the [RecordLinkage R package](https://www.
 ```python
 from groupbyrule import RLdata500
 
-RLdata500.head()
+RLdata500.head() 
 ```
 
 
