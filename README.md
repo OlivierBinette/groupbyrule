@@ -11,7 +11,7 @@ One of the main goal of **groupbyrule** is to be user-friendly. Matching rules a
 Install from github using the following command:
 
 
-```python
+```sh
 pip install git+https://github.com/OlivierBinette/groupbyrule.git
 ```
 
@@ -25,7 +25,7 @@ Consider the `RLdata500` dataset from the [RecordLinkage R package](https://www.
 ```python
 from groupbyrule import RLdata500
 
-RLdata500.head()
+RLdata500
 ```
 
 
@@ -106,7 +106,7 @@ We deduplicate this dataset by linking records which match either on both first 
 
 
 ```python
-from groupbyrule import Any, Match, groupby
+from groupbyrule import Any, Match, identity_RLdata500, precision_recall
 import pandas as pd
 
 # Specify linkage rule
@@ -135,7 +135,7 @@ A better way to deduplicate this data is to link all pairs of records which agre
 
 
 ```python
-from groupbyrule import AllButK, precision_recall, identity_RLdata500
+from groupbyrule import AllButK
 
 # Match records matching on all but at most k=1 of the specified attributes
 rule = AllButK("fname_c1", "lname_c1", "bd", "bm", "by", k=1)
@@ -162,8 +162,7 @@ Following record linkage, records can be processed using pandas's groupby and ag
 ```python
 RLdata500\
     .groupby(rule.groups)\
-    .first()\
-    .head()
+    .first()
 ```
 
 
@@ -234,8 +233,69 @@ RLdata500\
       <td>1</td>
       <td>13</td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>449</th>
+      <td>BRITTA</td>
+      <td>None</td>
+      <td>KOEHLER</td>
+      <td>None</td>
+      <td>2001</td>
+      <td>1</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>450</th>
+      <td>SABINE</td>
+      <td>None</td>
+      <td>SCHNEIDER</td>
+      <td>None</td>
+      <td>1953</td>
+      <td>5</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>451</th>
+      <td>MARIA</td>
+      <td>None</td>
+      <td>SCHNEIDER</td>
+      <td>None</td>
+      <td>1981</td>
+      <td>8</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>452</th>
+      <td>INGE</td>
+      <td>None</td>
+      <td>SCHREIBER</td>
+      <td>None</td>
+      <td>1967</td>
+      <td>12</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>453</th>
+      <td>KARIN</td>
+      <td>None</td>
+      <td>GUENTHER</td>
+      <td>None</td>
+      <td>1941</td>
+      <td>8</td>
+      <td>19</td>
+    </tr>
   </tbody>
 </table>
+<p>454 rows × 7 columns</p>
 </div>
 
 
