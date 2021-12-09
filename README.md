@@ -4,7 +4,7 @@
 
 **GroupByRule** is a Python package for data cleaning and deduplication. It integrates with [pandas](https://pandas.pydata.org/)' [`groupby`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html) function to not only group dataframe rows by a given identifier, but also groups rows based on logical rules and partial matching. In other words, it provides tools for deterministic record linkage and entity resolution in structured databases. It can also be used for *blocking*, a form of filtering used to speed-up more complex entity resolution algorithms. See the references below to learn more about these topics.
 
-One of the main goal of **GroupByRule** is to be user-friendly. Matching rules and clustering algorithms are composable and the performance of algorithms can be readily evaluted given training data. The package is built on top of [pandas](https://pandas.pydata.org) for data manipulation and on [igraph](https://igraph.org/python/) for graph clustering and related computations.
+One of the main goal of **GroupByRule** is to be user-friendly. Matching rules and clustering algorithms are composable and the performance of algorithms can be readily evaluated given training data. The package is built on top of [pandas](https://pandas.pydata.org) for data manipulation and on [igraph](https://igraph.org/python/) for graph clustering and related computations.
 
 ## Installation
 
@@ -186,7 +186,7 @@ precision_recall(rule.groups, identity_RLdata500)
 
 
 
-Note that this is not the best way to deduplicate this dataset. However, it showcases the composability of matching rules. The specific rules themselves (exact matching, similarity-based string matching, and different clustering algorithms) can be customized as needed. A more complete overview is available [here]() 🚧.
+This is not the best way to deduplicate this dataset, but the above showcases the composability of matching rules. The specific rules themselves (exact matching, similarity-based string matching, and different clustering algorithms) can be customized as needed. A more complete overview is available [here]() 🚧.
 
 A better way to deduplicate this data is to link all pairs of records which agree on all but at most one attribute. This is done below.
 
