@@ -7,6 +7,7 @@ import itertools
 
 from .groupingrule import GroupingRule
 
+
 class Match(GroupingRule):
     def __init__(self, *args):
         super().__init__()
@@ -22,16 +23,17 @@ class Match(GroupingRule):
 
         return self
 
-    @staticmethod 
+    @staticmethod
     def _groups_from_rules(rules, df: pd.DataFrame) -> np.ndarray:
         def _groups(rule, df):
             if isinstance(rule, str):
                 I = pd.isna(df[rule].values)
                 arr = np.ma.masked_array(df[rule].values, I)
-                arr = np.unique(arr, return_inverse=True)[1] # Get unique IDs
-                arr[I] = np.array(np.arange(len(arr), len(arr)+sum(I))) # Set different IDs for NA values
+                arr = np.unique(arr, return_inverse=True)[1]  # Get unique IDs
+                # Set different IDs for NA values
+                arr[I] = np.array(np.arange(len(arr), len(arr)+sum(I)))
                 return arr
-                #return df.groupby(rule).ngroup().values # Does not properly account for NA values
+                # return df.groupby(rule).ngroup().values # Does not properly account for NA values
             elif isinstance(rule, GroupingRule):
                 return rule.fit(df).groups
             else:
@@ -43,20 +45,23 @@ class Match(GroupingRule):
         res = np.arange(arr.shape[0])
         res[~I] = ids
         return res
-        #return df.groupby([_groups(rule, df) for rule in rules]).ngroup().values #Does not properly account for NA values
+        # return df.groupby([_groups(rule, df) for rule in rules]).ngroup().values #Does not properly account for NA values
 
     @property
     def graph(self) -> igraph.Graph:
         if self._update_graph:
-            clust = pd.DataFrame({"groups":self.groups}).groupby("groups").indices
+            clust = pd.DataFrame({"groups": self.groups}
+                                 ).groupby("groups").indices
             self._graph = igraph.Graph(n=self.n)
-            self._graph.add_edges(itertools.chain(*(list(itertools.combinations(clust[x], 2)) for x in clust)))
+            self._graph.add_edges(itertools.chain(
+                *(list(itertools.combinations(clust[x], 2)) for x in clust)))
             self._update_graph = False
         return self._graph
 
     @property
     def groups(self) -> np.ndarray:
         return self._groups
+
 
 class All(GroupingRule):
 
@@ -77,7 +82,6 @@ class All(GroupingRule):
         self._update_groups = True
 
         return self
-
 
     @property
     def graph(self):
@@ -111,7 +115,6 @@ class Any(GroupingRule):
 
         return self
 
-
     @property
     def graph(self):
         return self._graph
@@ -128,11 +131,14 @@ class AllButK(Any):
 
     def __init__(self, *args, k=0, level="groups"):
         if level == "groups":
-            rules = [Match(*x) for x in itertools.combinations(args, len(args)-k)]
+            rules = [Match(*x)
+                     for x in itertools.combinations(args, len(args)-k)]
         elif level == "graph":
-            rules = [All(*x) for x in itertools.combinations(args, len(args)-k)]
+            rules = [All(*x)
+                     for x in itertools.combinations(args, len(args)-k)]
         super().__init__(*rules)
 
+        # Code below is very inefficient when there are large clusters in some of the *args rule
         # def parse_arg(arg):
         #     if isinstance(arg, str):
         #         return Match(arg)
@@ -157,7 +163,6 @@ class AllButK(Any):
     #     self._update_groups = True
 
     #     return self
-
 
     # @property
     # def graph(self):
