@@ -3,12 +3,16 @@ import pandas as pd
 import numpy as np
 import igraph
 from abc import ABC, abstractmethod
+import numpy.typing as npt
+
+
+GroupsType = npt.ArrayLike
 
 
 class GroupingRule(ABC):
     def __init__(self):
         self._graph: igraph.Graph = None
-        self._groups: np.ndarray = None
+        self._groups: GroupsType = None
         self.n: int = None
         self.index: pd.Index = None
 
@@ -28,5 +32,5 @@ class GroupingRule(ABC):
 
     @property
     @abstractmethod
-    def groups(self) -> np.ndarray:
+    def groups(self) -> GroupsType:
         pass

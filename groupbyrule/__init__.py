@@ -1,5 +1,8 @@
-from .data import RLdata500, RLdata10000, identity_RLdata500, identity_RLdata10000
+from . import data
 from .groupingrule import GroupingRule
 from .logical import Match, All, Any, AllButK
 from .groupby import groupby
 from .metrics import precision, recall, precision_recall
+
+__version__ = '0.0.1.9000'
+__author__ = 'Olivier Binette'

@@ -1,5 +1,5 @@
 from pandas import DataFrame
-from .groupingrule import GroupingRule
+from .groupingrule import GroupingRule, GroupsType
 
 
 def groupby(df: DataFrame, rule: GroupingRule):

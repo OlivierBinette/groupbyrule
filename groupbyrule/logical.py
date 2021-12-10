@@ -1,13 +1,17 @@
 from __future__ import annotations
+from os import stat
 import pandas as pd
 import numpy as np
 import igraph
 from abc import ABC, abstractmethod
 import itertools
+from typing import Iterable
+import numpy.typing as npt
 
-from .groupingrule import GroupingRule
+from .groupingrule import GroupingRule, GroupsType
 
 
+# TODO: Include "level" argument
 class Match(GroupingRule):
     def __init__(self, *args):
         super().__init__()
@@ -24,7 +28,7 @@ class Match(GroupingRule):
         return self
 
     @staticmethod
-    def _groups_from_rules(rules, df: pd.DataFrame) -> np.ndarray:
+    def _groups_from_rules(rules, df: pd.DataFrame) -> GroupsType:
         def _groups(rule, df):
             if isinstance(rule, str):
                 I = pd.isna(df[rule].values)
@@ -54,12 +58,12 @@ class Match(GroupingRule):
                                  ).groupby("groups").indices
             self._graph = igraph.Graph(n=self.n)
             self._graph.add_edges(itertools.chain(
-                *(list(itertools.combinations(clust[x], 2)) for x in clust)))
+                *(list(itertools.combinations(clust[x], 2)) for x in clust)))  # This is slow
             self._update_graph = False
         return self._graph
 
     @property
-    def groups(self) -> np.ndarray:
+    def groups(self) -> GroupsType:
         return self._groups
 
 
@@ -95,6 +99,7 @@ class All(GroupingRule):
         return self._groups
 
 
+# TODO: Include "level" argument to fix slowness at graph level
 class Any(GroupingRule):
 
     def __init__(self, *args):
@@ -108,12 +113,21 @@ class Any(GroupingRule):
 
     def fit(self, df: pd.DataFrame) -> Any:
         super().fit(df)
+        # Slow; might be better to work at the groups level
         graphs = [rule.fit(df).graph for rule in self.rules]
         self._graph = igraph.union(graphs, byname=False)
         self._update_clusters = True
         self._update_groups = True
 
         return self
+
+    @staticmethod
+    def combine_graphs(graphs: Iterable[igraph.Graph]) -> igraph.Graph:
+        pass
+
+    @staticmethod
+    def combine_groups(groups: Iterable[GroupsType]) -> npt.ArrayLike[np.uint]:
+        pass
 
     @property
     def graph(self):
