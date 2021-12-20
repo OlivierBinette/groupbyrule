@@ -100,6 +100,7 @@ class All(GroupingRule):
 
 
 # TODO: Include "level" argument to fix slowness at graph level
+# TODO: Add blocking option
 class Any(GroupingRule):
 
     def __init__(self, *args):
@@ -126,7 +127,7 @@ class Any(GroupingRule):
         pass
 
     @staticmethod
-    def combine_groups(groups: Iterable[GroupsType]) -> npt.ArrayLike[np.uint]:
+    def combine_groups(groups: Iterable[GroupsType]) -> GroupsType:
         pass
 
     @property
