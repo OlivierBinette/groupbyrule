@@ -1,6 +1,7 @@
 from . import data
-from .groupingrule import GroupingRule
+from .linkagerule import LinkageRule
 from .match import Match
+from .any import Any
 from .groupby import groupby
 from .metrics import precision, recall, precision_recall
 

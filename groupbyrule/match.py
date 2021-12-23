@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import itertools
 from igraph import Graph
-from .groupingrule import LinkageRule
+from .linkagerule import LinkageRule
 
 
 def _groups(rule, df):
@@ -40,7 +40,7 @@ def _groups(rule, df):
     Groups specified by a given linkage rule:
     >>> rule = Match("fname")
     >>> _groups(rule, df)
-    array([2, 1, 0], dtype=int8)
+    array([2, 1, 0])
     """
     if (isinstance(rule, str)):
         arr = np.copy(pd.Categorical(df[rule]).codes)
@@ -114,10 +114,10 @@ class Match(LinkageRule):
     >>> rule = Match("fname", "lname")
 
     Fit linkage rule to the data.
-    >>> rule.fit(df)
+    >>> _ = rule.fit(df)
 
     Construct deduplicated dataframe, retaining only the first record in each cluster.
-    >>> df.groupby(rule.groups).first()
+    >>> _ = df.groupby(rule.groups).first()
     """
 
     def __init__(self, *args):
