@@ -1,0 +1,2 @@
+class Any(GroupingRule):
+    pass

@@ -1,6 +1,6 @@
 from . import data
 from .groupingrule import GroupingRule
-from .logical import Match, All, Any, AllButK
+from .match import Match
 from .groupby import groupby
 from .metrics import precision, recall, precision_recall
 
