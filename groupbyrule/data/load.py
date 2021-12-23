@@ -5,7 +5,7 @@ import pandas as pd
 # RL datasets are from https://cran.r-project.org/web/packages/RecordLinkage/index.html
 
 
-def RLdata500() -> pd.DataFrame:
+def load_RLdata500() -> pd.DataFrame:
     RLdata500 = pd.read_csv(
         resource_filename("groupbyrule", "data/RLdata500.csv"),
         index_col=0)
@@ -18,7 +18,7 @@ def RLdata500() -> pd.DataFrame:
     return RLdata500
 
 
-def RLdata1000() -> pd.DataFrame:
+def load_RLdata1000() -> pd.DataFrame:
     RLdata10000 = pd.read_csv(
         resource_filename("groupbyrule", "data/RLdata10000.csv"),
         index_col=0)
@@ -35,7 +35,7 @@ def RLdata1000() -> pd.DataFrame:
 # ABSEmployee dataset is from https://github.com/cleanzr/dblink-experiments
 
 
-def ABSEmployee() -> pd.DataFrame:
+def load_ABSEmployee() -> pd.DataFrame:
     # dtype = {"RECID": pd.StringDtype(),
     #          "FILEID": pd.StringDtype(),
     #          "ENTID": pd.Int64Dtype(),

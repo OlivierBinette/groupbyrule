@@ -14,7 +14,10 @@ def precision(pred_labels, true_labels) -> float:
     TP = np.sum(comb(TP_cluster_sizes, 2))
     P = np.sum(comb(P_cluster_sizes, 2))
 
-    return TP / P
+    if P == 0:
+        return 1.0
+    else:
+        return TP / P
 
 
 def recall(pred_labels, true_labels) -> float:

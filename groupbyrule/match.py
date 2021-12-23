@@ -5,6 +5,72 @@ from igraph import Graph
 from .linkagerule import LinkageRule
 
 
+class Match(LinkageRule):
+    """
+    Class representing an exact matching rule over a given set of columns.
+
+    Attributes
+    ----------
+    graph: igraph.Graph
+        Graph representing linkage fitted to the data. Defaults to None and is instanciated after the `fit()` function is called.
+
+    groups: integer array
+        Membership vector for the linkage clusters fitted to the data. Defaults to None and is instanciated after the `fit()` function is called.
+
+    Methods
+    -------
+    fit(df)
+        Fits linkage rule to the given dataframe.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"fname":["Olivier", "Jean-Francois", "Alex"], "lname":["Binette", "Binette", pd.NA]})
+
+    Link records which agree on both the "fname" and "lname" fields.
+    >>> rule = Match("fname", "lname")
+
+    Fit linkage rule to the data.
+    >>> _ = rule.fit(df)
+
+    Construct deduplicated dataframe, retaining only the first record in each cluster.
+    >>> _ = df.groupby(rule.groups).first()
+    """
+
+    def __init__(self, *args):
+        """
+        Parameters
+        ----------
+        args: list containing strings and/or LinkageRule objects.
+            The `Match` object represents the logical conjunction of the set of rules given in the `args` parameter. 
+        """
+        self.rules = args
+        self._update_graph = False
+        self.n = None
+
+    def fit(self, df):
+        self._groups = _groups_from_rules(self.rules, df)
+        self._update_graph = True
+        self.n = df.shape[0]
+
+        return self
+
+    @property
+    def groups(self):
+        return self._groups
+
+    @property
+    def graph(self) -> Graph:
+        if self._update_graph:
+            clust = pd.DataFrame({"groups": self.groups}
+                                 ).groupby("groups").indices
+            self._graph = Graph(n=self.n)
+            self._graph.add_edges(itertools.chain.from_iterable(
+                itertools.combinations(clust[x], 2) for x in clust))
+            self._update_graph = False
+        return self._graph
+
+
 def _groups(rule, df):
     """
     Fit linkage rule to dataframe and return membership vector.
@@ -86,69 +152,3 @@ def _groups_from_rules(rules, df):
     arr = np.array([_groups(rule, df) for rule in rules]).T
     groups = np.unique(arr, axis=0, return_inverse=True)[1]
     return groups
-
-
-class Match(LinkageRule):
-    """
-    Class representing an exact matching rule over a given set of columns.
-
-    Attributes
-    ----------
-    graph: igraph.Graph
-        Graph representing linkage fitted to the data. Defaults to None and is instanciated after the `fit()` function is called.
-
-    groups: integer array
-        Membership vector for the linkage clusters fitted to the data. Defaults to None and is instanciated after the `fit()` function is called.
-
-    Methods
-    -------
-    fit(df)
-        Fits linkage rule to the given dataframe.
-
-    Examples
-    --------
-    >>> import pandas as pd
-    >>> df = pd.DataFrame({"fname":["Olivier", "Jean-Francois", "Alex"], "lname":["Binette", "Binette", pd.NA]})
-
-    Link records which agree on both the "fname" and "lname" fields.
-    >>> rule = Match("fname", "lname")
-
-    Fit linkage rule to the data.
-    >>> _ = rule.fit(df)
-
-    Construct deduplicated dataframe, retaining only the first record in each cluster.
-    >>> _ = df.groupby(rule.groups).first()
-    """
-
-    def __init__(self, *args):
-        """
-        Parameters
-        ----------
-        args: list containing strings and/or LinkageRule objects.
-            The `Match` object represents the logical conjunction of the set of rules given in the `args` parameter. 
-        """
-        self.rules = args
-        self._update_graph = False
-        self.n = None
-
-    def fit(self, df):
-        self._groups = _groups_from_rules(self.rules, df)
-        self._update_graph = True
-        self.n = df.shape[0]
-
-        return self
-
-    @property
-    def groups(self):
-        return self._groups
-
-    @property
-    def graph(self) -> Graph:
-        if self._update_graph:
-            clust = pd.DataFrame({"groups": self.groups}
-                                 ).groupby("groups").indices
-            self._graph = Graph(n=self.n)
-            self._graph.add_edges(itertools.chain(
-                *(list(itertools.combinations(clust[x], 2)) for x in clust)))
-            self._update_graph = False
-        return self._graph
