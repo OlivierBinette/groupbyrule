@@ -1,4 +1,4 @@
-# GroupByRule: deduplicate data using fuzzy and deterministic matching rules
+# :link: GroupByRule: deduplicate data using fuzzy and deterministic matching rules
 
 🚧 under construction 🚧
 

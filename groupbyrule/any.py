@@ -91,6 +91,6 @@ def _path_graph(rule, df):
                          ).groupby("groups").indices
     graph = Graph(n=df.shape[0])
     graph.add_edges(itertools.chain.from_iterable(
-        pairwise(clust[x]) for x in clust))
+        pairwise(c) for c in clust.values()))
 
     return graph

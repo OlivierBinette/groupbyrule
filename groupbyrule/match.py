@@ -66,7 +66,7 @@ class Match(LinkageRule):
                                  ).groupby("groups").indices
             self._graph = Graph(n=self.n)
             self._graph.add_edges(itertools.chain.from_iterable(
-                itertools.combinations(clust[x], 2) for x in clust))
+                itertools.combinations(c, 2) for c in clust.values()))
             self._update_graph = False
         return self._graph
 
