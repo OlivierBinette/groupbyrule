@@ -110,9 +110,7 @@ def _groups(rule, df):
     """
     if (isinstance(rule, str)):
         arr = np.copy(pd.Categorical(df[rule]).codes)
-        I = (arr == -1)  # NA value indicators
-        arr[I] = np.arange(len(arr), len(arr)+sum(I))
-        return arr
+        return np.where(arr == -1, range(len(arr), 2*len(arr)), arr)
     elif isinstance(rule, LinkageRule):
         return rule.fit(df).groups
     else:
