@@ -97,11 +97,11 @@ def _groups(rule, df):
 
     Groups specified by distinct first names:
     >>> _groups("fname", df)
-    array([2, 1, 0], dtype=int8)
+    array([2, 1, 0], dtype=int32)
 
     Groups specified by same last names:
     >>> _groups("lname", df)
-    array([0, 0, 3], dtype=int8)
+    array([0, 0, 3], dtype=int32)
 
     Groups specified by a given linkage rule:
     >>> rule = Match("fname")
@@ -109,8 +109,10 @@ def _groups(rule, df):
     array([2, 1, 0])
     """
     if (isinstance(rule, str)):
-        arr = np.copy(pd.Categorical(df[rule]).codes)
-        return np.where(arr == -1, range(len(arr), 2*len(arr)), arr)
+        arr = np.array(pd.Categorical(df[rule]).codes, dtype=np.int32)
+        I = (arr == -1)
+        arr[I] = np.arange(len(arr), len(arr)+sum(I))
+        return arr
     elif isinstance(rule, LinkageRule):
         return rule.fit(df).groups
     else:
