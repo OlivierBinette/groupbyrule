@@ -1,6 +1,6 @@
 from numpy import intc
 from .linkagerule import LinkageRule
-from .match import _groups
+from .match import _groups, _graph
 import pandas as pd
 from igraph import Graph
 import igraph
@@ -26,22 +26,32 @@ class Any(LinkageRule):
         Fits linkage rule to the given dataframe.
     """
 
-    def __init__(self, *args):
+    def __init__(self, *args, level="groups"):
         """
         Parameters
         ----------
         args: list containing strings and/or LinkageRule objects.
             The `Any` object represents the logical disjunction of the set of rules given by `args`. 
+        level: string
+            One of "groups" or "graph". Specifies if logical disjunction should be done after resolving clusters ("groups") or at the linkage graph level ("graph")
         """
         self.rules = args
+        self.level = level
+
         self._graph = None
         self._groups = None
+
+        self._update_graph = False
         self._update_groups = False
 
     def fit(self, df):
+        if self.level == "groups":
+            graphs_vect = [_path_graph(rule, df) for rule in self.rules]
+            self._graph = igraph.union(graphs_vect)
+        else:
+            self._graph = igraph.union(
+                [_graph(rule, df) for rule in self.rules])
         self._update_groups = True
-        graphs_vect = [_path_graph(rule, df) for rule in self.rules]
-        self._graph = igraph.union(graphs_vect)
         return self
 
     @ property

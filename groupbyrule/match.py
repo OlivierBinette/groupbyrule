@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import itertools
 from igraph import Graph
+import igraph
 from .linkagerule import LinkageRule
 
 
@@ -37,26 +38,43 @@ class Match(LinkageRule):
     >>> _ = df.groupby(rule.groups).first()
     """
 
-    def __init__(self, *args):
+    def __init__(self, *args, level="groups"):
         """
         Parameters
         ----------
         args: list containing strings and/or LinkageRule objects.
             The `Match` object represents the logical conjunction of the set of rules given in the `args` parameter. 
+        level: string
+            One of "groups" or "graph". Specifies if logical disjunction should be done after resolving clusters ("groups") or at the linkage graph level ("graph")
         """
         self.rules = args
-        self._update_graph = False
+        self.level = level
+
         self.n = None
+        self._graph = None
+        self._groups = None
+
+        self._update_graph = False
+        self._update_groups = False
 
     def fit(self, df):
-        self._groups = _groups_from_rules(self.rules, df)
-        self._update_graph = True
         self.n = df.shape[0]
+        if self.level == "groups":
+            self._update_graph = True
+            self._groups = _groups_from_rules(self.rules, df)
+        else:
+            self._update_groups = True
+            self._graph = igraph.intersection(
+                [_graph(rule, df) for rule in self.rules])
 
         return self
 
     @property
     def groups(self):
+        if self._update_groups:
+            self._groups = np.array(self._graph.clusters().membership)
+            self._update_groups = False
+
         return self._groups
 
     @property
@@ -69,6 +87,12 @@ class Match(LinkageRule):
                 itertools.combinations(c, 2) for c in clust.values()))
             self._update_graph = False
         return self._graph
+
+
+def _graph(rule, df):
+    if (isinstance(rule, str)):
+        return Match(rule).fit(df).graph
+    return rule.fit(df).graph
 
 
 def _groups(rule, df):
@@ -108,6 +132,7 @@ def _groups(rule, df):
     >>> _groups(rule, df)
     array([2, 1, 0])
     """
+
     if (isinstance(rule, str)):
         arr = np.array(pd.Categorical(df[rule]).codes, dtype=np.int32)
         I = (arr == -1)
@@ -119,7 +144,7 @@ def _groups(rule, df):
         raise NotImplementedError()
 
 
-def _groups_from_rules(rules, df):
+def _groups_from_rules(rules, df, level="groups"):
     """
     Fit linkage rules to data and return groups corresponding to their logical conjunction.
 
@@ -129,7 +154,6 @@ def _groups_from_rules(rules, df):
     ----------
     rules: list[LinkageRule]
         List of strings or Linkage rule objects to be fitted to the data. Strings are interpreted as exact matching rules on the corresponding columns.
-
     df: DataFrame
         pandas DataFrame to which the rules are fitted.
 

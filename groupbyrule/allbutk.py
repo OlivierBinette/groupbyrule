@@ -5,6 +5,7 @@ import itertools
 
 class AllButK(Any):
 
-    def __init__(self, *args, k=0):
-        rules = [Match(*x) for x in itertools.combinations(args, len(args)-k)]
+    def __init__(self, *args, k=0, level="groups"):
+        rules = [Match(*x, level=level)
+                 for x in itertools.combinations(args, len(args)-k)]
         super().__init__(*rules)
