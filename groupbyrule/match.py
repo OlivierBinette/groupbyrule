@@ -6,6 +6,16 @@ import igraph
 from .linkagerule import LinkageRule
 
 
+def graph_from_groups(groups):
+    clust = pd.DataFrame({"groups": groups}
+                         ).groupby("groups").indices
+    graph = Graph(n=len(groups))
+    graph.add_edges(itertools.chain.from_iterable(
+        itertools.combinations(c, 2) for c in clust.values()))
+
+    return graph
+
+
 class Match(LinkageRule):
     """
     Class representing an exact matching rule over a given set of columns.
@@ -80,12 +90,8 @@ class Match(LinkageRule):
     @property
     def graph(self) -> Graph:
         if self._update_graph:
-            clust = pd.DataFrame({"groups": self.groups}
-                                 ).groupby("groups").indices
-            self._graph = Graph(n=self.n)
-            self._graph.add_edges(itertools.chain.from_iterable(
-                itertools.combinations(c, 2) for c in clust.values()))
             self._update_graph = False
+            self._graph = graph_from_groups(self._groups)
         return self._graph
 
 
