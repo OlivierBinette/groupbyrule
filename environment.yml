@@ -5,6 +5,6 @@ dependencies:
   - numpy
   - scipy
   - pandas
-  - sklearn
+  - scikit-learn
   - pip:
     - igraph
