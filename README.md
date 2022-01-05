@@ -10,6 +10,8 @@ One of the main goal of **GroupByRule** is to be user-friendly. Matching rules a
 
 Install from github using the following command:
 
+We deduplicate this dataset by linking records which match either on both first name (`fname_c1`) and last name (`lname_c1`), on both first name and birth day (`bd`), or on both last name and birth day. Linkage transitivity is resolved, by default, by considering connected components of the resulting graph. Precision and recall are computed from the ground truth membership vector `identity_RLdata500`.
+
      pip install git+https://github.com/OlivierBinette/groupbyrule.git
 
 ## Examples
@@ -172,8 +174,6 @@ df
 </div>
 
 
-
-We deduplicate this dataset by linking records which match either on both first name (`fname_c1`) and last name (`lname_c1`), on both first name and birth day (`bd`), or on both last name and birth day. Linkage transitivity is resolved, by default, by considering connected components of the resulting graph. Precision and recall are computed from the ground truth membership vector `identity_RLdata500`.
 
 
 ```python
