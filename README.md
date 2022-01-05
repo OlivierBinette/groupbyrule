@@ -1,3 +1,5 @@
+[![test](https://github.com/OlivierBinette/groupbyrule/actions/workflows/python-package-conda.yml/badge.svg?event=delete)](https://github.com/OlivierBinette/groupbyrule/actions/workflows/python-package-conda.yml) 
+
 # :link: GroupByRule: deduplicate data using fuzzy and deterministic matching rules
 
 🚧 under construction 🚧
