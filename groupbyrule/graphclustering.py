@@ -1,7 +1,7 @@
 from .linkagerule import LinkageRule
 import numpy as np
 import pandas as pd
-from match import graph_from_groups
+from .match import graph_from_groups
 
 
 def connected_components(graph):

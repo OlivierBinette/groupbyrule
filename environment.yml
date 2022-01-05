@@ -1,0 +1,10 @@
+name: groupbyrule
+
+dependencies:
+  - python=3.9
+  - numpy
+  - scipy
+  - pandas
+  - sklearn
+  - pip:
+    - igraph
