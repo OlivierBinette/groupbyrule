@@ -30,6 +30,3 @@ class ConnectedComponents(LinkageRule):
             self.graph = graph_from_groups(self._groups)
             self._update_graph = False
         return self._graph
-
-
-class
