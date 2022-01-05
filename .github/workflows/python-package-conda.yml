@@ -37,4 +37,5 @@ jobs:
         pytest --doctest-modules
     - name: Run README.ipynb
       run: |
+        conda install ipython
         ipython README.ipynb
