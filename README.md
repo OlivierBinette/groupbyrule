@@ -12,8 +12,6 @@ One of the main goal of **GroupByRule** is to be user-friendly. Matching rules a
 
 Install from github using the following command:
 
-We deduplicate this dataset by linking records which match either on both first name (`fname_c1`) and last name (`lname_c1`), on both first name and birth day (`bd`), or on both last name and birth day. Linkage transitivity is resolved, by default, by considering connected components of the resulting graph. Precision and recall are computed from the ground truth membership vector `identity_RLdata500`.
-
      pip install git+https://github.com/OlivierBinette/groupbyrule.git
 
 ## Examples
@@ -176,6 +174,8 @@ df
 </div>
 
 
+
+We deduplicate this dataset by linking records which match either on both first name (`fname_c1`) and last name (`lname_c1`), on both first name and birth day (`bd`), or on both last name and birth day. Linkage transitivity is resolved, by default, by considering connected components of the resulting graph. Precision and recall are computed from the ground truth membership vector `identity_RLdata500`.
 
 
 ```python
@@ -387,6 +387,34 @@ df.groupby(rule.groups).first()
 
 🚧
 
+#### Comparison Functions
+
+**GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, 🚧, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section.
+
+String distance functions are implemented through subclasses of the `Comparator` abstract base case. `Comparator` objects are used to instanciate comparison functions while allowing data in memory to be recycled across function calls. The `compare` method can then be used to compare elements, or the `elementwise` method can be used to compare all pairs of elements between two lists.
+
+Below are examples of the comparison functions currently implemented. These are currently implemented in pure Python and a not very efficient. A C implementation will soon be provided 🚧.
+
+##### Levenshtein Distance
+
+The Levenshtein distance is defined as ...
+
+
+```python
+from groupbyrule.comparator import Levenshtein
+
+cmp = Levenshtein(normalize=True)
+
+cmp.compare("Olivier", "Oliver")
+```
+
+
+
+
+    0.14285714285714285
+
+
+
 ### Supervised Approaches and Learning Rules
 
 🚧
@@ -399,7 +427,25 @@ df.groupby(rule.groups).first()
 
 🚧
 
+### Privacy-Preserving Record Linkage
+
+🚧
+
+#### Cryptographic Primitives
+
+🚧
+
+#### Multiparty Computation Protocols
+
+🚧
+
+
 ## References
 
 🚧
 
+
+
+```python
+
+```
