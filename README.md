@@ -25,7 +25,7 @@ Consider the `RLdata500` dataset from the [RecordLinkage R package](https://www.
 from groupbyrule.data import load_RLdata500
 
 df = load_RLdata500()
-df
+df.head()
 ```
 
 
@@ -102,75 +102,8 @@ df
       <td>13</td>
       <td>72</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>496</th>
-      <td>GABRIHELE</td>
-      <td>NaN</td>
-      <td>BECKER</td>
-      <td>NaN</td>
-      <td>1990</td>
-      <td>3</td>
-      <td>27</td>
-      <td>413</td>
-    </tr>
-    <tr>
-      <th>497</th>
-      <td>SABINE</td>
-      <td>NaN</td>
-      <td>SCHNEIDER</td>
-      <td>NaN</td>
-      <td>1953</td>
-      <td>5</td>
-      <td>20</td>
-      <td>378</td>
-    </tr>
-    <tr>
-      <th>498</th>
-      <td>MARIA</td>
-      <td>NaN</td>
-      <td>SCHNEIDER</td>
-      <td>NaN</td>
-      <td>1981</td>
-      <td>8</td>
-      <td>8</td>
-      <td>399</td>
-    </tr>
-    <tr>
-      <th>499</th>
-      <td>INGE</td>
-      <td>NaN</td>
-      <td>SCHREIBER</td>
-      <td>NaN</td>
-      <td>1967</td>
-      <td>12</td>
-      <td>13</td>
-      <td>315</td>
-    </tr>
-    <tr>
-      <th>500</th>
-      <td>KARIN</td>
-      <td>NaN</td>
-      <td>GUENTHER</td>
-      <td>NaN</td>
-      <td>1941</td>
-      <td>8</td>
-      <td>19</td>
-      <td>238</td>
-    </tr>
   </tbody>
 </table>
-<p>500 rows × 8 columns</p>
 </div>
 
 
@@ -232,155 +165,8 @@ Following record linkage, records can be processed using pandas's groupby and ag
 
 
 ```python
-df.groupby(rule.groups).first()
+deduplicated = df.groupby(rule.groups).first()
 ```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>fname_c1</th>
-      <th>fname_c2</th>
-      <th>lname_c1</th>
-      <th>lname_c2</th>
-      <th>by</th>
-      <th>bm</th>
-      <th>bd</th>
-      <th>identity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>CARSTEN</td>
-      <td>None</td>
-      <td>MEIER</td>
-      <td>None</td>
-      <td>1949</td>
-      <td>7</td>
-      <td>22</td>
-      <td>34</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>GERD</td>
-      <td>None</td>
-      <td>BAUER</td>
-      <td>None</td>
-      <td>1968</td>
-      <td>7</td>
-      <td>27</td>
-      <td>51</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>ROBERT</td>
-      <td>None</td>
-      <td>HARTMANN</td>
-      <td>None</td>
-      <td>1930</td>
-      <td>4</td>
-      <td>30</td>
-      <td>115</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>STEFAN</td>
-      <td>None</td>
-      <td>WOLFF</td>
-      <td>None</td>
-      <td>1957</td>
-      <td>9</td>
-      <td>2</td>
-      <td>189</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>RALF</td>
-      <td>None</td>
-      <td>KRUEGER</td>
-      <td>None</td>
-      <td>1966</td>
-      <td>1</td>
-      <td>13</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>449</th>
-      <td>BRITTA</td>
-      <td>None</td>
-      <td>KOEHLER</td>
-      <td>None</td>
-      <td>2001</td>
-      <td>1</td>
-      <td>12</td>
-      <td>424</td>
-    </tr>
-    <tr>
-      <th>450</th>
-      <td>SABINE</td>
-      <td>None</td>
-      <td>SCHNEIDER</td>
-      <td>None</td>
-      <td>1953</td>
-      <td>5</td>
-      <td>20</td>
-      <td>378</td>
-    </tr>
-    <tr>
-      <th>451</th>
-      <td>MARIA</td>
-      <td>None</td>
-      <td>SCHNEIDER</td>
-      <td>None</td>
-      <td>1981</td>
-      <td>8</td>
-      <td>8</td>
-      <td>399</td>
-    </tr>
-    <tr>
-      <th>452</th>
-      <td>INGE</td>
-      <td>None</td>
-      <td>SCHREIBER</td>
-      <td>None</td>
-      <td>1967</td>
-      <td>12</td>
-      <td>13</td>
-      <td>315</td>
-    </tr>
-    <tr>
-      <th>453</th>
-      <td>KARIN</td>
-      <td>None</td>
-      <td>GUENTHER</td>
-      <td>None</td>
-      <td>1941</td>
-      <td>8</td>
-      <td>19</td>
-      <td>238</td>
-    </tr>
-  </tbody>
-</table>
-<p>454 rows × 8 columns</p>
-</div>
-
-
 
 
 ### Similarity-Based Linkage Rules
