@@ -21,15 +21,19 @@ def _levenshtein(s, t, dmat):
 
 class Levenshtein(Comparator):
 
-    def __init__(self, normalize=True, dmat_size=100):
+    def __init__(self, normalize=True, similarity=False, dmat_size=100):
         self.dmat = np.zeros((dmat_size, 2))
         self.normalize = normalize
+        self.similarity = similarity
 
     def compare(self, s1, s2):
         dist = _levenshtein(s1, s2, self.dmat)
-        if self.normalize:
-            return 2 * dist / (len(s1) + len(s2) + dist)
-        return dist
-
-    def elementwise(self, l1, l2):
-        return np.array([[_levenshtein(s, t, self.dmat) for t in l2] for s in l1])
+        if self.similarity:
+            sim = (len(s1) + len(s2) - dist) / 2.0
+            if self.normalize:
+                sim = 2 * sim / (len(s1) + len(s2) - sim)
+            return sim
+        else:
+            if self.normalize:
+                dist = 2 * dist / (len(s1) + len(s2) + dist)
+            return dist

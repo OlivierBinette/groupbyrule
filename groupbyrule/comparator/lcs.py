@@ -29,9 +29,12 @@ class LCSDistance(Comparator):
 
     def compare(self, s1, s2):
         dist = len(s1) + len(s2) - 2 * _lcs(s1, s2, self.dmat)
-        if self.normalize:
-            return 2 * dist / (len(s1) + len(s2) + dist)
-        return dist
-
-    def elementwise(self, l1, l2):
-        return np.array([[_lcs(s, t, self.dmat) for t in l2] for s in l1])
+        if self.similarity:
+            sim = (len(s1) + len(s2) - dist) / 2.0
+            if self.normalize:
+                sim = 2 * sim / (len(s1) + len(s2) - sim)
+            return sim
+        else:
+            if self.normalize:
+                dist = 2 * dist / (len(s1) + len(s2) + dist)
+            return dist
