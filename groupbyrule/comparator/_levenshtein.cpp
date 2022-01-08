@@ -2,22 +2,24 @@
 #include <pybind11/stl.h>
 #include <vector>
 
+#include "_comparator.cpp"
+
 namespace py = pybind11;
 
 using DMat = std::vector<std::vector<double>>;
 
-class Levenshtein {
+class Levenshtein: public Comparator {
 public:
 
   bool normalize;
   bool similarity;
   int dmat_size;
-  std::vector<std::vector<double>> dmat;
+  DMat dmat;
 
-  Levenshtein(){
-    normalize = false;
-    similarity = false;
-    dmat_size = 100;
+  Levenshtein(bool normalize=true, bool similarity=false, int dmat_size=100){
+    this->normalize = normalize;
+    this->similarity = similarity;
+    this->dmat_size = dmat_size;
 
     dmat = DMat(2, std::vector<double>(dmat_size));
   }
@@ -72,8 +74,8 @@ PYBIND11_MODULE(_levenshtein,m) {
   m.doc() = "";
   m.attr("__name__") = "groupbyrule.comparator._levenshtein";
 
-  py::class_<Levenshtein>(m, "Levenshtein")
-        .def(py::init<>())
+  py::class_<Levenshtein, Comparator>(m, "Levenshtein")
+        .def(py::init<bool, bool, int>(), py::arg("normalize")=true, py::arg("similarity")=false, py::arg("dmat_size")=100)
         .def("compare", &Levenshtein::compare);
   
 }
