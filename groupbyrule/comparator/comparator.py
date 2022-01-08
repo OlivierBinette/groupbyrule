@@ -41,3 +41,7 @@ class Comparator(ABC):
 
     def elementwise(self, l1, l2):
         return np.array([self.compare(s, t, self.dmat) for s, t in zip(l1, l2)])
+
+
+class StringComparator(Comparator):
+    pass

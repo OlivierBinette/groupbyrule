@@ -4,18 +4,25 @@
 
 namespace py = pybind11;
 
-
+template <class dtype>
 class Comparator {
     public:
-    virtual double compare() = 0;
+    virtual double compare(const dtype s, const dtype t);
 };
 
-PYBIND11_MODULE(_comparator,m) {
+class StringComparator: public Comparator<std::string> {};
 
-  m.doc() = "";
-  m.attr("__name__") = "groupbyrule.comparator._comparator";
+template<class T>
+void declare_comparator(py::module &m, std::string name) {
+    py::class_<T>(m, name.c_str())
+        .def("compare", &T::compare);
+}
 
-  py::class_<Comparator>(m, "Comparator")
-        .def("compare", &Comparator::compare);
-  
+PYBIND11_MODULE(_comparator, m) {
+
+    m.doc() = "";
+    m.attr("__name__") = "groupbyrule.comparator._comparator";
+
+    declare_comparator<Comparator<py::object>>(m, "Comparator");
+    declare_comparator<StringComparator>(m, "StringComparator");
 }

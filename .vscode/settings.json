@@ -64,6 +64,8 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "semaphore": "cpp"
+        "semaphore": "cpp",
+        "complex": "cpp",
+        "sstream": "cpp"
     }
 }

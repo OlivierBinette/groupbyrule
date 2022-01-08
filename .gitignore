@@ -14,3 +14,4 @@ bagorders_precision_luciana.csv
 build/
 
 *.so
+.vscode/settings.json
