@@ -1,0 +1,79 @@
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <vector>
+
+namespace py = pybind11;
+
+using DMat = std::vector<std::vector<double>>;
+
+class Levenshtein {
+public:
+
+  bool normalize;
+  bool similarity;
+  int dmat_size;
+  std::vector<std::vector<double>> dmat;
+
+  Levenshtein(){
+    normalize = false;
+    similarity = false;
+    dmat_size = 100;
+
+    dmat = DMat(2, std::vector<double>(dmat_size));
+  }
+
+  int levenshtein(std::string &s, std::string &t) {
+    int m = s.size();
+    int n = t.size();
+
+    for (int i = 0; i < dmat_size; i++) {
+      dmat[0][i] = i;
+    }
+
+    int cost;
+    for (int j = 1; j <= n; j++) {
+      dmat[(j-1) % 2][0] = j-1;
+      dmat[j % 2][1] = j;
+      for (int i = 1; i <= m; i++) {
+        cost = 0;
+        if (s[i-1] != t[j-1]){
+          cost = 1;
+        }
+        dmat[j % 2][i] = std::min({dmat[j % 2][i-1] + 1, dmat[(j-1) % 2][i] +
+                                 1, dmat[(j-1) % 2][i-1] + cost});
+      }
+    }
+
+    return dmat[n % 2][m];
+  }
+
+  double compare(std::string &s, std::string &t) {
+    double dist = levenshtein(s, t);
+
+    if (similarity) {
+      double sim = (s.size() + t.size() - dist) / 2.0;
+      if (normalize) {
+        sim = 2 * sim / (s.size() + t.size() - sim);
+      }
+      return sim;
+    } else {
+      if (normalize) {
+        dist = 2 * dist / (s.size() + t.size() + dist);
+      }
+      return dist;
+    }
+  }
+  
+};
+
+
+PYBIND11_MODULE(_levenshtein,m) {
+
+  m.doc() = "";
+  m.attr("__name__") = "groupbyrule.comparator._levenshtein";
+
+  py::class_<Levenshtein>(m, "Levenshtein")
+        .def(py::init<>())
+        .def("compare", &Levenshtein::compare);
+  
+}
