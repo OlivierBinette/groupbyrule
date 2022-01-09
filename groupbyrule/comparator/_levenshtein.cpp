@@ -5,8 +5,10 @@
 #include "_comparator.cpp"
 
 namespace py = pybind11;
+using namespace std;
 
-using DMat = std::vector<std::vector<double>>;
+template<class T>
+using Mat = vector<vector<T>>;
 
 class Levenshtein: public StringComparator {
 public:
@@ -14,17 +16,17 @@ public:
   bool normalize;
   bool similarity;
   int dmat_size;
-  DMat dmat;
+  Mat<int> dmat;
 
   Levenshtein(bool normalize=true, bool similarity=false, int dmat_size=100){
     this->normalize = normalize;
     this->similarity = similarity;
     this->dmat_size = dmat_size;
 
-    dmat = DMat(2, std::vector<double>(dmat_size));
+    dmat = Mat<int>(2, vector<int>(dmat_size));
   }
 
-  int levenshtein(const std::string &s, const std::string &t) {
+  int levenshtein(const string &s, const string &t) {
     int m = s.size();
     int n = t.size();
 
@@ -41,7 +43,7 @@ public:
         if (s[i-1] != t[j-1]){
           cost = 1;
         }
-        dmat[j % 2][i] = std::min({dmat[j % 2][i-1] + 1, dmat[(j-1) % 2][i] +
+        dmat[j % 2][i] = min({dmat[j % 2][i-1] + 1, dmat[(j-1) % 2][i] +
                                  1, dmat[(j-1) % 2][i-1] + cost});
       }
     }
@@ -49,7 +51,7 @@ public:
     return dmat[n % 2][m];
   }
 
-  double compare(const std::string &s, const std::string &t) {
+  double compare(const string &s, const string &t) {
     double dist = levenshtein(s, t);
 
     if (similarity) {
