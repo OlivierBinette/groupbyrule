@@ -8,6 +8,8 @@
 
 One of the main goal of **GroupByRule** is to be user-friendly. Matching rules and clustering algorithms are composable and the performance of algorithms can be readily evaluated given training data. The package is built on top of [pandas](https://pandas.pydata.org) for data manipulation and on [igraph](https://igraph.org/python/) for graph clustering and related computations.
 
+Additionally, **GroupByRule** contains the `comparator` submodule which provides efficient C++ implementations of common [string distance functions](https://en.wikipedia.org/wiki/String_metric). This can be of independent interest as well.
+
 ## Installation
 
 Install from github using the following command:
@@ -159,7 +161,7 @@ precision_recall(rule.groups, df.identity)
 
 
 
-### Postprocessing
+#### Postprocessing
 
 Following record linkage, records can be processed using pandas's groupby and aggregation functions. Below, we only keep the first non-NA attribute value for each record cluster. This is a simple way to obtain a deduplicated dataset.
 
@@ -168,27 +170,22 @@ Following record linkage, records can be processed using pandas's groupby and ag
 deduplicated = df.groupby(rule.groups).first()
 ```
 
+### String Distance Functions
 
-### Similarity-Based Linkage Rules
-
-🚧
-
-#### Comparison Functions
-
-**GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, 🚧, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section.
+**GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, 🚧, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section. This is heavily inspired by Neil Marchant's excellent [Comparator](https://github.com/ngmarchant/comparator) R package, but not quite equivalent in its scope and implementation.
 
 String distance functions are implemented through subclasses of the `Comparator` abstract base case. `Comparator` objects are used to instanciate comparison functions while allowing data in memory to be recycled across function calls. The `compare()` method can then be used to compare elements, the `pairwise()` method can be used to compare all pairs of elements between two lists, and the `elementwise()` method can be used to compare corresponding elements.
 
 Below are examples of the comparison functions currently provided. These are implemented in C++ for efficiency.
 
-##### Levenshtein Distance
+#### Levenshtein Distance
 
 
 ```python
 from groupbyrule.comparator import Levenshtein
 
 cmp = Levenshtein(normalize=True)
-cmp.compare("Olivier", "Oliver") 
+cmp.compare("Olivier", "Oliver")  
 ```
 
 
@@ -197,6 +194,54 @@ cmp.compare("Olivier", "Oliver")
     0.14285714285714285
 
 
+
+
+```python
+cmp.elementwise(["Olivier", "Oliver", "Olivia"], 3*["Olivier"])
+```
+
+
+
+
+    [0.0, 0.14285714285714285, 0.26666666666666666]
+
+
+
+
+```python
+cmp.pairwise(["Olivier", "Oliver", "Olivia"], ["Olivier", "test", "Other"])
+```
+
+
+
+
+    [[0.0, 0.7777777777777778, 0.5],
+     [0.14285714285714285, 0.75, 0.42857142857142855],
+     [0.26666666666666666, 0.75, 0.625]]
+
+
+
+#### Longest Common Subsequence (LCS) Distance
+
+
+```python
+from groupbyrule.comparator import LCSDistance
+
+cmp = LCSDistance(normalize=True)
+cmp.compare("Olivier", "Oliver")
+```
+
+
+
+
+    0.14285714285714285
+
+
+
+
+### Similarity-Based Linkage Rules
+
+🚧
 
 ### Supervised Approaches and Learning Rules
 
