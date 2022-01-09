@@ -79,5 +79,5 @@ PYBIND11_MODULE(_levenshtein,m) {
   py::class_<Levenshtein, StringComparator>(m, "Levenshtein")
         .def(py::init<bool, bool, int>(), py::arg("normalize")=true, py::arg("similarity")=false, py::arg("dmat_size")=100)
         .def("compare", &Levenshtein::compare);
-  
+
 }

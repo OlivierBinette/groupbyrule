@@ -38,6 +38,8 @@ class Comparator {
 
 class StringComparator: public Comparator<string> {};
 
+class NumericComparator: public Comparator<double> {};
+
 template<class T>
 void declare_comparator(py::module &m, string name) {
     py::class_<T>(m, name.c_str())
@@ -53,4 +55,5 @@ PYBIND11_MODULE(_comparator, m) {
 
     declare_comparator<Comparator<py::object>>(m, "Comparator");
     declare_comparator<StringComparator>(m, "StringComparator");
+    declare_comparator<NumericComparator>(m, "NumericComparator");
 }

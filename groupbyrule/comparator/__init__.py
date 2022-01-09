@@ -1,4 +1,4 @@
-try:
+try:  # C++ imports
     from groupbyrule.comparator._comparator import Comparator, StringComparator
     from groupbyrule.comparator._levenshtein import Levenshtein
     from groupbyrule.comparator._lcs import LCSDistance
