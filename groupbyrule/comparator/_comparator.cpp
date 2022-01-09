@@ -7,7 +7,7 @@ namespace py = pybind11;
 template <class dtype>
 class Comparator {
     public:
-    virtual double compare(const dtype s, const dtype t);
+    virtual double compare(const dtype &s, const dtype &t) = 0;
 };
 
 class StringComparator: public Comparator<std::string> {};
