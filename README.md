@@ -8,7 +8,7 @@
 
 One of the main goal of **GroupByRule** is to be user-friendly. Matching rules and clustering algorithms are composable and the performance of algorithms can be readily evaluated given training data. The package is built on top of [pandas](https://pandas.pydata.org) for data manipulation and on [igraph](https://igraph.org/python/) for graph clustering and related computations.
 
-Additionally, **GroupByRule** contains the `comparator` submodule which provides efficient C++ implementations of common [string distance functions](https://en.wikipedia.org/wiki/String_metric). This can be of independent interest as well.
+Additionally, **GroupByRule** provides highly efficient C++ implementations of common [string distance functions](https://en.wikipedia.org/wiki/String_metric) through its `comparator` submodule. This can be used independently of record linkage algorithms.
 
 ## Installation
 
@@ -34,6 +34,7 @@ df.head()
 
 
 <div>
+
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
