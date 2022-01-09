@@ -177,21 +177,18 @@ deduplicated = df.groupby(rule.groups).first()
 
 **GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, 🚧, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section.
 
-String distance functions are implemented through subclasses of the `Comparator` abstract base case. `Comparator` objects are used to instanciate comparison functions while allowing data in memory to be recycled across function calls. The `compare` method can then be used to compare elements, or the `elementwise` method can be used to compare all pairs of elements between two lists.
+String distance functions are implemented through subclasses of the `Comparator` abstract base case. `Comparator` objects are used to instanciate comparison functions while allowing data in memory to be recycled across function calls. The `compare()` method can then be used to compare elements, the `pairwise()` method can be used to compare all pairs of elements between two lists, and the `elementwise()` method can be used to compare corresponding elements.
 
-Below are examples of the comparison functions currently implemented. These are currently implemented in pure Python and a not very efficient. A C implementation will soon be provided 🚧.
+Below are examples of the comparison functions currently provided. These are implemented in C++ for efficiency.
 
 ##### Levenshtein Distance
-
-The Levenshtein distance is defined as ...
 
 
 ```python
 from groupbyrule.comparator import Levenshtein
 
 cmp = Levenshtein(normalize=True)
-
-cmp.compare("Olivier", "Oliver")
+cmp.compare("Olivier", "Oliver") 
 ```
 
 
