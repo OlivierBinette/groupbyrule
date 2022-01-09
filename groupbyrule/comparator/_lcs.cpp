@@ -56,7 +56,7 @@ public:
     if (similarity) {
       double sim = (s.size() + t.size() - dist) / 2.0;
       if (normalize) {
-        sim = 2 * sim / (s.size() + t.size() - sim);
+        sim = sim / (s.size() + t.size() - sim);
       }
       return sim;
     } else {

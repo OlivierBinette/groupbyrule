@@ -32,7 +32,7 @@ class LCSDistance(StringComparator):
         if self.similarity:
             sim = (len(s1) + len(s2) - dist) / 2.0
             if self.normalize:
-                sim = 2 * sim / (len(s1) + len(s2) - sim)
+                sim = sim / (len(s1) + len(s2) - sim)
             return sim
         else:
             if self.normalize:

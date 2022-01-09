@@ -35,7 +35,7 @@ class DamereauLevenshtein(StringComparator):
         if self.similarity:
             sim = (len(s) + len(t) - dist) / 2.0
             if self.normalize:
-                sim = 2 * sim / (len(s) + len(t) - sim)
+                sim = sim / (len(s) + len(t) - sim)
             return sim
         else:
             if self.normalize:

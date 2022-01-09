@@ -15,6 +15,10 @@ class Comparator {
     virtual double compare(const dtype &s, const dtype &t) = 0;
 
     vector<double> elementwise(const vector<dtype> &l1, const vector<dtype> &l2) {
+        if (l1.size() != l2.size()) {
+            std::length_error("Lists should be of the same size.");
+        }
+
         vector<double> res(l1.size());
         for (int i = 0; i < l1.size(); i++) {
             res[i] = this->compare(l1[i], l2[i]);
