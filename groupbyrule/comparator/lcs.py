@@ -1,4 +1,4 @@
-from .comparator import Comparator
+from .comparator import StringComparator
 
 import numpy as np
 
@@ -21,7 +21,7 @@ def _lcs(s, t, dmat):
     return dmat[m, n % 2]
 
 
-class LCSDistance(Comparator):
+class LCSDistance(StringComparator):
 
     def __init__(self, normalize=True, dmat_size=100):
         self.dmat = np.zeros((dmat_size, 2))

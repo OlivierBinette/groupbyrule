@@ -12,7 +12,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext, intree_extensio
 # ]
 
 ext_modules = intree_extensions(
-    ["groupbyrule/comparator/_levenshtein.cpp", "groupbyrule/comparator/_comparator.cpp"])
+    ["groupbyrule/comparator/_levenshtein.cpp", "groupbyrule/comparator/_comparator.cpp", "groupbyrule/comparator/_lcs.cpp"])
 
 
 if __name__ == "__main__":

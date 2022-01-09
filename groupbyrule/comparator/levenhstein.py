@@ -1,5 +1,5 @@
 import numpy as np
-from .comparator import Comparator
+from .comparator import StringComparator
 
 
 def _levenshtein(s, t, dmat):
@@ -19,7 +19,7 @@ def _levenshtein(s, t, dmat):
     return dmat[m, n % 2]
 
 
-class Levenshtein(Comparator):
+class Levenshtein(StringComparator):
 
     def __init__(self, normalize=True, similarity=False, dmat_size=100):
         self.dmat = np.zeros((dmat_size, 2))
