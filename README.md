@@ -34,7 +34,6 @@ df.head()
 
 
 <div>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -185,40 +184,14 @@ Below are examples of the comparison functions currently provided. These are imp
 ```python
 from groupbyrule.comparator import Levenshtein
 
-cmp = Levenshtein(normalize=True)
-cmp.compare("Olivier", "Oliver")  
+cmp = Levenshtein(normalize=True, similarity=False)
+cmp.compare("Olivier", "Oilvier")
 ```
 
 
 
 
-    0.14285714285714285
-
-
-
-
-```python
-cmp.elementwise(["Olivier", "Oliver", "Olivia"], 3*["Olivier"])
-```
-
-
-
-
-    [0.0, 0.14285714285714285, 0.26666666666666666]
-
-
-
-
-```python
-cmp.pairwise(["Olivier", "Oliver", "Olivia"], ["Olivier", "test", "Other"])
-```
-
-
-
-
-    [[0.0, 0.7777777777777778, 0.5],
-     [0.14285714285714285, 0.75, 0.42857142857142855],
-     [0.26666666666666666, 0.75, 0.625]]
+    0.25
 
 
 
@@ -228,14 +201,31 @@ cmp.pairwise(["Olivier", "Oliver", "Olivia"], ["Olivier", "test", "Other"])
 ```python
 from groupbyrule.comparator import LCSDistance
 
-cmp = LCSDistance(normalize=True)
-cmp.compare("Olivier", "Oliver")
+cmp = LCSDistance(normalize=True, similarity=False)
+cmp.compare("Olivier", "Oilvier")
 ```
 
 
 
 
-    0.14285714285714285
+    0.25
+
+
+
+#### Damerau-Levenshtein Distance
+
+
+```python
+from groupbyrule.comparator import DamerauLevenshtein
+
+cmp = DamerauLevenshtein(normalize=True, similarity=False)
+cmp.compare("Olivier", "Oilvier")
+```
+
+
+
+
+    0.13333333333333333
 
 
 
