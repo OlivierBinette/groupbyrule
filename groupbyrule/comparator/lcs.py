@@ -3,7 +3,7 @@ from .comparator import StringComparator
 import numpy as np
 
 
-def _lcs(s, t, dmat):
+def lcs(s, t, dmat):
     m = len(s)
     n = len(t)
     dmat[:, 0] = np.zeros(dmat.shape[0])
@@ -23,12 +23,13 @@ def _lcs(s, t, dmat):
 
 class LCSDistance(StringComparator):
 
-    def __init__(self, normalize=True, dmat_size=100):
+    def __init__(self, normalize=True, similarity=False, dmat_size=100):
         self.dmat = np.zeros((dmat_size, 2))
         self.normalize = normalize
+        self.similarity = similarity
 
     def compare(self, s1, s2):
-        dist = len(s1) + len(s2) - 2 * _lcs(s1, s2, self.dmat)
+        dist = len(s1) + len(s2) - 2 * lcs(s1, s2, self.dmat)
         if self.similarity:
             sim = (len(s1) + len(s2) - dist) / 2.0
             if self.normalize:

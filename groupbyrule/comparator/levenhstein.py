@@ -2,7 +2,7 @@ import numpy as np
 from .comparator import StringComparator
 
 
-def _levenshtein(s, t, dmat):
+def levenshtein(s, t, dmat):
     m = len(s)
     n = len(t)
     dmat[:, 0] = np.arange(dmat.shape[0])
@@ -27,7 +27,7 @@ class Levenshtein(StringComparator):
         self.similarity = similarity
 
     def compare(self, s1, s2):
-        dist = _levenshtein(s1, s2, self.dmat)
+        dist = levenshtein(s1, s2, self.dmat)
         if self.similarity:
             sim = (len(s1) + len(s2) - dist) / 2.0
             if self.normalize:

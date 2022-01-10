@@ -2,7 +2,7 @@ import numpy as np
 from .comparator import StringComparator
 
 
-def _dameraulevenshtein(s, t, dmat):
+def dameraulevenshtein(s, t, dmat):
     # Algorithm is described at https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
     m = len(s)
     n = len(t)
@@ -31,7 +31,7 @@ class DamereauLevenshtein(StringComparator):
         self.similarity = similarity
 
     def compare(self, s, t):
-        dist = _dameraulevenshtein(s, t, self.dmat)
+        dist = dameraulevenshtein(s, t, self.dmat)
         if self.similarity:
             sim = (len(s) + len(t) - dist) / 2.0
             if self.normalize:
