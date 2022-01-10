@@ -23,7 +23,7 @@ def dameraulevenshtein(s, t, dmat):
     return dmat[m, n % 3]
 
 
-class DamereauLevenshtein(StringComparator):
+class DamerauLevenshtein(StringComparator):
 
     def __init__(self, normalize=True, similarity=False, dmat_size=100):
         self.dmat = np.zeros((dmat_size, 3))
