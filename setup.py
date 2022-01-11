@@ -11,7 +11,8 @@ if __name__ == "__main__":
              "groupbyrule/comparator/_comparator.cpp",
              "groupbyrule/comparator/_lcs.cpp",
              "groupbyrule/comparator/_dameraulevenshtein.cpp",
-             "groupbyrule/comparator/_jaro.cpp"])
+             "groupbyrule/comparator/_jaro.cpp",
+             "groupbyrule/comparator/_jarowinkler.cpp"])
         setup(ext_modules=ext_modules, cmdclass={"build_ext": build_ext})
     except:
         warnings.warn(

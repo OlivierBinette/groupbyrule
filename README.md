@@ -172,7 +172,7 @@ deduplicated = df.groupby(rule.groups).first()
 
 ### String Distance Functions
 
-**GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, 🚧, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section. This is heavily inspired by Neil Marchant's excellent [Comparator](https://github.com/ngmarchant/comparator) R package, but not quite equivalent in its scope and implementation.
+**GroupByRule** provides a suite of string and numerical similarity functions as part of its `comparator` submodule. String similarity functions include the Levenshtein distance, the Jaro-Winkler distance, and 🚧. These similarity functions can be used on their own as shown below, or for the definition of linkage rules as explained in the following section. This is heavily inspired by Neil Marchant's excellent [Comparator](https://github.com/ngmarchant/comparator) R package, but not quite equivalent in its scope and implementation.
 
 String distance functions are implemented through subclasses of the `Comparator` abstract base case. `Comparator` objects are used to instanciate comparison functions while allowing data in memory to be recycled across function calls. The `compare()` method can then be used to compare elements, the `pairwise()` method can be used to compare all pairs of elements between two lists, and the `elementwise()` method can be used to compare corresponding elements.
 
@@ -226,6 +226,40 @@ cmp.compare("Olivier", "Oilvier")
 
 
     0.13333333333333333
+
+
+
+#### Jaro Distance
+
+
+```python
+from groupbyrule.comparator import Jaro
+
+cmp = Jaro(similarity=False)
+cmp.compare("Olivier", "Oilvier")
+```
+
+
+
+
+    0.04761904761904756
+
+
+
+#### Jaro-Winkler Distance
+
+
+```python
+from groupbyrule.comparator import JaroWinkler
+
+cmp = JaroWinkler(similarity=False)
+cmp.compare("Olivier", "Oilvier")
+```
+
+
+
+
+    0.042857142857142816
 
 
 

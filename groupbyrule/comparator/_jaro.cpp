@@ -16,7 +16,7 @@ public:
     this->similarity = similarity;
   }
 
-  double jaro(const string &s, const string &t) {
+  static double jaro(const string &s, const string &t) {
     int window = max(1.0, floor(max(s.size(), t.size()) / 2.0) - 1);
 
     double m = 0;
@@ -25,8 +25,6 @@ public:
 
     size_t j0, j1;
     for (size_t i = 0; i < s.size(); i++) {
-        //j0 = max(size_t(0), i-window+1);
-        //j1 = min(t.size(), i+window);
         for (size_t j = 0; j < t.size(); j++) {
             if (!found_t[j] && (s[i] == t[j]) && (abs(int(i)-int(j)) < window)) {
                 m += 1;

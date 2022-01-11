@@ -4,6 +4,7 @@ try:  # C++ imports
     from groupbyrule.comparator._lcs import LCSDistance
     from groupbyrule.comparator._dameraulevenshtein import DamerauLevenshtein
     from groupbyrule.comparator._jaro import Jaro
+    from groupbyrule.comparator._jarowinkler import JaroWinkler
 except:
     import warnings
     warnings.warn(
@@ -13,3 +14,4 @@ except:
     from .lcs import LCSDistance
     from .dameraulevenshtein import DamerauLevenshtein
     from .jaro import Jaro
+    from .jarowinkler import JaroWinkler
