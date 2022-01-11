@@ -229,23 +229,6 @@ cmp.compare("Olivier", "Oilvier")
 
 
 
-#### Jaro Distance
-
-
-```python
-from groupbyrule.comparator.jaro import Jaro
-
-cmp = Jaro(similarity=True)
-cmp.compare('JELLYFISH', 'SMELLYFISH')
-```
-
-
-
-
-    0.7555555555555555
-
-
-
 
 ### Similarity-Based Linkage Rules
 
