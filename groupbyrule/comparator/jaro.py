@@ -5,14 +5,13 @@ import numpy as np
 
 def jaro(s, t):
     # Implementation is from https://rosettacode.org/wiki/Jaro_similarity#Python
-    window = max(len(s), len(t))//2 - 1
-
+    window = max(1, max(len(s), len(t))//2 - 1)
     m = 0
     found_s = len(s) * [False]
     found_t = len(t) * [False]
     for i, si in enumerate(s):
         for j, tj in enumerate(t):
-            if (abs(i-j) < window) and not found_t[j] and si == tj:
+            if (abs(i-j) < window) and (not found_t[j]) and si == tj:
                 m = m + 1
                 found_s[i] = True
                 found_t[j] = True
