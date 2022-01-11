@@ -34,19 +34,6 @@ df.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -239,6 +226,23 @@ cmp.compare("Olivier", "Oilvier")
 
 
     0.13333333333333333
+
+
+
+#### Jaro Distance
+
+
+```python
+from groupbyrule.comparator.jaro import Jaro
+
+cmp = Jaro(similarity=True)
+cmp.compare('JELLYFISH', 'SMELLYFISH')
+```
+
+
+
+
+    0.7555555555555555
 
 
 

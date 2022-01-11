@@ -20,7 +20,7 @@ class Comparator {
         }
 
         vector<double> res(l1.size());
-        for (int i = 0; i < l1.size(); i++) {
+        for (size_t i = 0; i < l1.size(); i++) {
             res[i] = this->compare(l1[i], l2[i]);
         }
 
@@ -29,8 +29,8 @@ class Comparator {
 
     Mat<double> pairwise(const vector<dtype> &l1, const vector<dtype> &l2){
         Mat<double> res(l1.size(), vector<double>(l2.size()));
-        for (int i = 0; i < l1.size(); i++) {
-            for (int j = 0; j < l2.size(); j++) {
+        for (size_t i = 0; i < l1.size(); i++) {
+            for (size_t j = 0; j < l2.size(); j++) {
                 res[i][j] = this->compare(l1[i], l2[j]);
             }
         }
