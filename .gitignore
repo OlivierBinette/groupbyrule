@@ -15,3 +15,5 @@ build/
 
 *.so
 .vscode/*
+
+docs/_build
