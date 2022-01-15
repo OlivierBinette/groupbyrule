@@ -38,13 +38,16 @@ class Match(LinkageRule):
     >>> import pandas as pd
     >>> df = pd.DataFrame({"fname":["Olivier", "Jean-Francois", "Alex"], "lname":["Binette", "Binette", pd.NA]})
 
-    Link records which agree on both the "fname" and "lname" fields.
+    Link records which agree on both the "fname" and "lname" fields:
+
     >>> rule = Match("fname", "lname")
 
-    Fit linkage rule to the data.
+    Fit linkage rule to the data:
+
     >>> _ = rule.fit(df)
 
-    Construct deduplicated dataframe, retaining only the first record in each cluster.
+    Construct deduplicated dataframe, retaining only the first record in each cluster:
+
     >>> _ = df.groupby(rule.groups).first()
     """
 
