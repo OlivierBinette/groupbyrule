@@ -18,7 +18,7 @@ def load_RLdata500() -> pd.DataFrame:
     return RLdata500
 
 
-def load_RLdata1000() -> pd.DataFrame:
+def load_RLdata10000() -> pd.DataFrame:
     RLdata10000 = pd.read_csv(
         resource_filename("groupbyrule", "data/RLdata10000.csv"),
         index_col=0)

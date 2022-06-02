@@ -1,1 +1,1 @@
-from .load import load_RLdata500, load_RLdata1000, load_ABSEmployee
+from .load import load_RLdata500, load_RLdata10000, load_ABSEmployee
